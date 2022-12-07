@@ -1,0 +1,143 @@
+{
+  "name": "laravel",
+  "version": "0.1",
+  "rootDir": "",
+  "concepts": [
+    {
+      "name": "controller",
+      "source": "template",
+      "outputDir": "app/Http/Controllers/API/V1",
+      "template": {
+        "path": "templates/",
+        "options": [],
+        "placeholders": []
+      }
+    },
+    {
+      "name": "model",
+      "source": "template",
+      "outputDir": "app/Models",
+      "template": {
+        "path": "templates/",
+        "options": ["model.php.template"]
+      }
+    },
+    {
+      "name": "request",
+      "source": "template",
+      "outputDir": "app/Http/Requests",
+      "template": {
+        "path": "templates/",
+        "options": ["request.php.template"]
+      }
+    },
+    {
+      "name": "collection",
+      "source": "template",
+      "outputDir": "app/Http/Resources",
+      "template": {
+        "path": "templates/",
+        "options": ["resource-collection.php.template"]
+      }
+    },
+    {
+      "name": "resource",
+      "source": "template",
+      "outputDir": "app/Http/Resources",
+      "template": {
+        "path": "templates/",
+        "options": ["resource.php.template"]
+      }
+    },
+    {
+      "name": "factory",
+      "source": "template",
+      "outputDir": "database/factories",
+      "template": {
+        "path": "templates/",
+        "options": ["factory.php.template"]
+      }
+    },
+    {
+      "name": "test",
+      "source": "template",
+      "outputDir": "tests/Feature",
+      "template": {
+        "path": "templates/",
+        "options": ["test.php.template"]
+      }
+    },
+    {
+      "name": "testUnit",
+      "source": "template",
+      "outputDir": "tests/Unit",
+      "template": {
+        "path": "templates/",
+        "options": ["test.unit.php.template"]
+      }
+    },
+    {
+      "name": "repository",
+      "source": "template",
+      "outputDir": "app/Repositories",
+      "template": {
+        "path": "templates/",
+        "options": ["repository.php.template"]
+      }
+    },
+    {
+      "name": "migration",
+      "source": "template",
+      "outputDir": "database/migrations",
+      "template": {
+        "path": "templates/",
+        "options": ["repository.php.template"]
+      }
+    },
+    {
+      "name": "observer",
+      "source": "template",
+      "outputDir": "app/Observers",
+      "template": {
+        "path": "templates/",
+        "options": ["observer.php.template"]
+      }
+    },
+    {
+      "name": "listener",
+      "source": "template",
+      "outputDir": "app/Listeners",
+      "template": {
+        "path": "templates/",
+        "options": ["listener.php.template"]
+      }
+    },
+    {
+      "name": "event",
+      "source": "template",
+      "outputDir": "app/Events",
+      "template": {
+        "path": "templates/",
+        "options": ["event.php.template"]
+      }
+    },
+    {
+      "name": "policy",
+      "source": "template",
+      "outputDir": "app/Policies",
+      "template": {
+        "path": "templates/",
+        "options": ["policy.php.template"]
+      }
+    },
+    {
+      "name": "middleware",
+      "source": "template",
+      "outputDir": "app/Http/Middleware",
+      "template": {
+        "path": "templates/",
+        "options": ["middleware.php.template"]
+      }
+    }
+  ]
+}

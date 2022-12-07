@@ -1,0 +1,12 @@
+{{#each fields}}
+{{#if (equals type "enum")}}
+$table->{{type}}('{{underscore name}}'{{#if arguments}},[{{{arguments}}}]{{/if}}){{#if options}}{{#each options}}->{{key}}('{{value}}'){{/each}}{{/if}};
+{{else}}
+$table->{{type}}('{{underscore name}}'{{#if arguments}},{{{arguments}}}{{/if}}){{#if options}}{{#each options}}->{{key}}({{value}}){{/each}}{{/if}};
+{{/if}}
+{{/each}}
+{{#each relations}}
+{{#if (equals type "belongsTo")}}
+$table->foreignId('{{lowercase foreignKey}}')->nullable()->constrained('{{pluralize (lowercase model)}}')->onDelete('cascade')->onUpdate('cascade');
+{{/if}}
+{{/each}}

@@ -1,0 +1,64 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\\{{ classify name }};
+use Illuminate\Http\Request;
+
+class {{ class }} extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\{{ classify name}} ${{lowercase name}}
+     * @return \Illuminate\Http\Response
+     */
+    public function show({{ classify name}} ${{lowercase name}})
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\\{{ classify name}} ${{lowercase name}}
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, {{ classify name}} ${{lowercase name}})
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\\{{ classify name}}  ${{ lowercase name}}
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy({{ classify name}} ${{ lowercase name}})
+    {
+        //
+    }
+}

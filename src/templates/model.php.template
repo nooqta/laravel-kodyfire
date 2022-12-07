@@ -1,0 +1,48 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class {{ class }} extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        {{{ fillable }}}
+    ];
+
+    protected $casts = [
+        {{{ casts }}}
+    ];
+
+    {{# each relations }}
+    public function {{  methodName }}()
+    {
+    {{# if (equals type "belongsTo") }}
+        return $this->belongsTo({{ model }}::class, '{{ foreignKey }}');
+    {{/ if }}
+    {{# if (equals type "hasMany") }}
+        return $this->hasMany({{ model }}::class);
+    {{/ if }}
+    {{# if (equals type "hasOne") }}
+        return $this->hasOne({{ model }}::class);
+    {{/ if }}
+    {{# if (equals type "belongsToMany") }}
+        return $this->belongsToMany({{ model }}::class);
+    {{/ if }}
+    {{#if (equals type "morphTo")}}
+        return $this->morphTo();
+    {{/if}}
+    {{#if (equals type "morphOne")}}
+        return $this->morphOne({{ model }}::class, '{{ lowercase name }}');
+    {{/if}}
+    {{#if (equals type "morphMany")}}
+        return $this->morphMany({{ model }}::class, '{{ lowercase name }}');
+    {{/if}}
+    }
+
+    {{/ each }}
+
+}

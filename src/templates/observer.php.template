@@ -1,0 +1,63 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\\{{ classify name }};
+
+class {{ class }}
+{
+    /**
+     * Handle the {{ lowercase name }} "created" event.
+     *
+     * @param  App\Models\\{{ classify name  }}  ${{ lowercase name }}
+     * @return void
+     */
+    public function created({{ classify name }} ${{ lowercase name }})
+    {
+        //
+    }
+
+    /**
+     * Handle the {{ lowercase name }} "updated" event.
+     *
+     * @param  App\Models\\{{ classify name  }}  ${{ lowercase name }}
+     * @return void
+     */
+    public function updated({{ classify name }} ${{ lowercase name }})
+    {
+        //
+    }
+
+    /**
+     * Handle the {{ lowercase name }} "deleted" event.
+     *
+     * @param  \App\Models\\{{ classify name  }}  ${{ lowercase name }}
+     * @return void
+     */
+    public function deleted({{ classify name  }} ${{ lowercase name }})
+    {
+        //
+    }
+
+    /**
+     * Handle the {{ lowercase name }} "restored" event.
+     *
+     * @param  \App\Models\\{{ classify name  }}  ${{ lowercase name }}
+     * @return void
+     */
+    public function restored({{ classify name }} ${{ lowercase name }})
+    {
+        //
+    }
+
+    /**
+     * Handle the {{ lowercase name  }} "force deleted" event.
+     *
+     * @param  \App\Models\\{{ classify name  }}  ${{ lowercase name }}
+     * @return void
+     */
+    public function forceDeleted({{ classify name }} ${{ lowercase name }})
+    {
+        //
+    }
+}
