@@ -1,11 +1,11 @@
 # Laravel-kodyfire
-![Version](https://img.shields.io/badge/version-0.0.18-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-0.1.1-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/nooqta/kodyfire#install-a-kody)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/nooqta/kodyfire/blob/main/LICENSE)
 
 > Generate Laravel models, migrations and more using [Kodyfire](https://github.com/nooqta/kodyfire).
 
-### 🏠 [Homepage](https://github.com/nooqta/kodyfire)
+### [Homepage](https://github.com/nooqta/kodyfire)
 
 ## Requirements
 
