@@ -64,7 +64,7 @@ export class Concept extends BaseConcept {
     if (data.filename) return data.filename;
     return join(
       data.outputDir,
-      `${data.name}.${this.getExtension(data.template)}`
+      `${data.name}.${data.extension || this.getExtension(data.template)}`
     );
   }
 
