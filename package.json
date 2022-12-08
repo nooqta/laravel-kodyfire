@@ -1,6 +1,6 @@
 {
   "name": "laravel-kodyfire",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "Generate x with laravel kodyfire",
   "main": "build/index.js",
   "scripts": {
