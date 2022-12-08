@@ -80,7 +80,7 @@ class Concept extends basic_kodyfire_1.Concept {
     getFilename(data) {
         if (data.filename)
             return data.filename;
-        return (0, path_1.join)(data.outputDir, `${data.name}.${this.getExtension(data.template)}`);
+        return (0, path_1.join)(data.outputDir, `${data.name}.${data.extension || this.getExtension(data.template)}`);
     }
     getExtension(templateName, defaultExtension = '.php') {
         return templateName.replace('.template', defaultExtension).split('.').pop();
