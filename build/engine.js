@@ -110,17 +110,6 @@ class Engine extends basic_kodyfire_1.Engine {
             return files;
         });
     }
-    /** Laravel related utils: translated from laravel php code base */
-    sortImports(stub) {
-        const regex = /(?P<imports>(?:^use [^;{]+;$\n?)+)/m;
-        const match = regex.exec(stub);
-        if (match && match.groups) {
-            const imports = match.groups.imports.split("\n");
-            imports.sort();
-            return stub.replace(match.groups.imports, imports.join("\n"));
-        }
-        return stub;
-    }
 }
 exports.Engine = Engine;
 //# sourceMappingURL=engine.js.map

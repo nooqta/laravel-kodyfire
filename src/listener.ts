@@ -15,7 +15,7 @@ export class Listener extends BaseConcept {
       join(this.getTemplatesPath(), this.template.path),
       _data.template
     );
-    _data.class = `${strings.classify(_data.name)}Event`;
+    _data.class = `${strings.classify(_data.name)}Listener`;
     const compiled = this.engine.compile(template, _data);
 
     await this.engine.createOrOverwrite(

@@ -4,7 +4,7 @@ import { strings } from '@angular-devkit/core';
 
 import { Concept as BaseConcept } from './concept';
 
-export class Resource extends BaseConcept {
+export class Subscriber extends BaseConcept {
   constructor(concept: Partial<IConcept>, technology: ITechnology) {
     super(concept, technology);
 
@@ -15,10 +15,7 @@ export class Resource extends BaseConcept {
       join(this.getTemplatesPath(), this.template.path),
       _data.template
     );
-    _data.class = `${strings.classify(_data.name)}Resource`;
-    if(_data.import) {
-      _data = this.prepareData(_data);
-    }
+    _data.class = `${strings.classify(_data.name)}Subscriber`;
     const compiled = this.engine.compile(template, _data);
 
     await this.engine.createOrOverwrite(

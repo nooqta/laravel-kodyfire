@@ -57,7 +57,8 @@ export class Concept extends BaseConcept {
   // resolve template name if it does not have template extension
   resolveTemplateName(templateName: string, name: string) {
     if (templateName.includes('.template')) return templateName;
-    return `${name.toLowerCase()}.${templateName}${this.extension}.template`;
+    templateName = templateName ? `.${templateName}` : '';
+    return `${name.toLowerCase()}${templateName}${this.extension}.template`;
   }
 
   getFilename(data: any) {

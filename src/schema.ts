@@ -32,6 +32,7 @@ const concepts = [{name: 'migration', namespace: 'Database\\Migrations'},
   {name: 'collection',  namespace: 'App\\Http\\Resources'},
   { name: 'event',  namespace: 'App\\Events'},
   { name: 'listener',  namespace: 'App\\Listeners'},
+  { name: 'subscriber',  namespace: 'App\\Listeners'},
   { name: 'observer',  namespace: 'App\\Observers'},
   { name: 'policy',  namespace: 'App\\Policies'},
   {name: 'factory',  namespace: 'Database\\Factories'},
@@ -88,7 +89,6 @@ let schema: any = {
 concepts.forEach((concept) => {
   schema.properties[concept.name] = generateConceptArray(concept);
 });
-
 
 export {
   schema

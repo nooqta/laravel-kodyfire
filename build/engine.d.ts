@@ -11,6 +11,4 @@ export declare class Engine extends BaseEngine {
     createOrOverwrite(rootDir: string, outputDir: string, filename: any, content: string | Buffer, overwrite?: boolean): Promise<void>;
     setContent(filename: any, content: string | Buffer): string | Buffer;
     getFiles(rootDir: string, outputDir: string): Promise<any>;
-    /** Laravel related utils: translated from laravel php code base */
-    sortImports(stub: string): string;
 }

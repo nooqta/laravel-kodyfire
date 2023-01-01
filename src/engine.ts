@@ -92,16 +92,4 @@ export class Engine extends BaseEngine {
     const files = await fsPromises.readdir(join(rootDir, outputDir));
     return files;
   }
-
-  /** Laravel related utils: translated from laravel php code base */
-  sortImports(stub: string): string {
-    const regex = /(?P<imports>(?:^use [^;{]+;$\n?)+)/m;
-    const match = regex.exec(stub);
-    if (match && match.groups) {
-      const imports = match.groups.imports.split("\n");
-      imports.sort();
-      return stub.replace(match.groups.imports, imports.join("\n"));
-    }
-    return stub;
-  }
 }

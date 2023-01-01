@@ -15,9 +15,10 @@ export class Event extends BaseConcept {
       join(this.getTemplatesPath(), this.template.path),
       _data.template
     );
-    _data.class = `${strings.classify(_data.name)}Event`;
+    _data.class = `Created`;
+    _data.outputDir =  join(_data.outputDir, strings.classify(_data.name))
     const compiled = this.engine.compile(template, _data);
-
+    
     await this.engine.createOrOverwrite(
       this.technology.rootDir,
       this.outputDir,

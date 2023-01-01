@@ -5,13 +5,15 @@ namespace App\Repositories;
 use Log;
 use Exception;
 use App\Models\\{{ name}};
+use App\Storage\DataBag;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class {{ class }}
 {
-    public function create($data)
+    public function create(DataBag $dataBag)
     {
+        $data = $dataBag->get("data");
         DB::beginTransaction();
         try {
             $model = {{classify name}}::create($data);
@@ -23,8 +25,9 @@ class {{ class }}
         return $model;
     }
 
-    public function update({{classify name }} $model, $data)
+    public function update({{classify name }} $model, DataBag $dataBag)
     {
+        $data = $dataBag->get("data");
         DB::beginTransaction();
         try {
 

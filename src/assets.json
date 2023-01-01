@@ -104,6 +104,15 @@
       }
     },
     {
+      "name": "subscriber",
+      "source": "template",
+      "outputDir": "app/Listeners",
+      "template": {
+        "path": "templates/",
+        "options": ["subscriber.php.template"]
+      }
+    },
+    {
       "name": "listener",
       "source": "template",
       "outputDir": "app/Listeners",

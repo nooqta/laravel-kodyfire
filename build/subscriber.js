@@ -9,21 +9,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Middleware = void 0;
+exports.Subscriber = void 0;
 const path_1 = require("path");
 const core_1 = require("@angular-devkit/core");
 const concept_1 = require("./concept");
-class Middleware extends concept_1.Concept {
+class Subscriber extends concept_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
     }
     generate(_data) {
         return __awaiter(this, void 0, void 0, function* () {
             const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
-            _data.class = `${core_1.strings.classify(_data.name)}Middleware`;
-            if (_data.import) {
-                _data = this.prepareData(_data);
-            }
+            _data.class = `${core_1.strings.classify(_data.name)}Subscriber`;
             const compiled = this.engine.compile(template, _data);
             yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename(_data), compiled);
         });
@@ -42,5 +39,5 @@ class Middleware extends concept_1.Concept {
             : (0, path_1.relative)(process.cwd(), __dirname);
     }
 }
-exports.Middleware = Middleware;
-//# sourceMappingURL=middleware.js.map
+exports.Subscriber = Subscriber;
+//# sourceMappingURL=subscriber.js.map

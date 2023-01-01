@@ -75,7 +75,8 @@ class Concept extends basic_kodyfire_1.Concept {
     resolveTemplateName(templateName, name) {
         if (templateName.includes('.template'))
             return templateName;
-        return `${name.toLowerCase()}.${templateName}${this.extension}.template`;
+        templateName = templateName ? `.${templateName}` : '';
+        return `${name.toLowerCase()}${templateName}${this.extension}.template`;
     }
     getFilename(data) {
         if (data.filename)

@@ -13,13 +13,14 @@ class YamlParser {
             const { currentImport, yaml } = data;
             data.fields = [];
             data.relations = [];
+            data.rules = [];
             // Parse the fields section of the model
             for (const [fieldName, fieldData] of Object.entries(currentImport.fields)) {
                 let multipleFields = fieldName.split(",");
                 // @ts-ignore
                 let [fieldType, ...options] = fieldData.split(" ");
                 options = options.map((opt) => {
-                    const [key, value = ''] = opt.split(":").map((e) => e.trim());
+                    const [key, value = ""] = opt.split(":").map((e) => e.trim());
                     return { key, value };
                 });
                 if (multipleFields.length > 1) {
@@ -76,7 +77,8 @@ class YamlParser {
                     let [relatedModel, methodName, foreignKey] = relation.split(":");
                     foreignKey = foreignKey || `${core_1.strings.underscore(relatedModel)}_id`;
                     if (["hasMany", "belongsToMany"].includes(relationType)) {
-                        methodName = methodName || `${(0, pluralize_1.default)(core_1.strings.camelize(relatedModel))}`;
+                        methodName =
+                            methodName || `${(0, pluralize_1.default)(core_1.strings.camelize(relatedModel))}`;
                     }
                     else {
                         methodName = methodName || `${core_1.strings.camelize(relatedModel)}`;
@@ -88,13 +90,29 @@ class YamlParser {
                         foreignKey,
                     });
                 }
-                data.fillable = data.fields
-                    //   .filter((field: any) => currentImport.hidden && !currentImport.hidden.includes(field.name))
-                    .map((e) => `'${core_1.strings.underscore(e.name)}'`).join(',');
-                data.casts = data.fields
-                    .filter((field) => ['json', 'date', 'dateTime', 'boolean'].includes(field.type))
-                    .map((e) => `'${e.name}' => '${e.type}'`).join(',\n\t\t');
             }
+            if (currentImport.hidden) {
+                data.hidden = currentImport.hidden
+                    .split(",")
+                    .map((e) => `'${e.trim()}'`)
+                    .join(",");
+            }
+            if (currentImport.rules) {
+                for (const [ruleName, ruleData] of Object.entries(currentImport.rules)) {
+                    data.rules.push({
+                        key: ruleName,
+                        value: ruleData,
+                    });
+                }
+            }
+            data.fillable = data.fields
+                //   .filter((field: any) => currentImport.hidden && !currentImport.hidden.includes(field.name))
+                .map((e) => `'${core_1.strings.underscore(e.name)}'`)
+                .join(",");
+            data.casts = data.fields
+                .filter((field) => ["json", "date", "dateTime", "boolean"].includes(field.type))
+                .map((e) => `'${e.name}' => '${e.type}'`)
+                .join(",\n\t\t");
         }
         catch (error) {
             // console.log(error);
