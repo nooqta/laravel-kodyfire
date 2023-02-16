@@ -50,17 +50,17 @@ public function index(Request  $request) {
     return response()->json($data);
   }
 
-  public function show({{ classify name}} ${{lowercase name}})
+  public function show({{ classify name}} ${{camelize name}})
   {
     try {
-      $data = ${{lowercase name}};
+      $data = ${{camelize name}};
     } catch (\Throwable $th) {
       Log::error($th->getMessage());
       return response()->json([
         'error' => __('app.errorMsg'),
       ], 500);
     }
-    $data = new {{ lowercase name}}Resource($data);
+    $data = new {{ classify name}}Resource($data);
     return response()->json(['data' => $data]);
   }
 

@@ -1,6 +1,6 @@
 {
   "name": "laravel-kodyfire",
-  "version": "0.1.10",
+  "version": "0.1.23",
   "description": "Generate x with laravel kodyfire",
   "main": "build/index.js",
   "scripts": {
@@ -21,11 +21,11 @@
     "@angular-devkit/core": "^12.2.3",
     "@angular-devkit/schematics": "^12.2.3",
     "ajv": "^8.6.3",
-    "basic-kodyfire": "^0.1.1",
+    "basic-kodyfire": "^0.1.7",
     "fs-extra": "^10.0.0",
     "handlebars": "^4.7.7",
     "handlebars-delimiters": "^1.0.0",
-    "kodyfire-core": "^0.1.1",
+    "kodyfire-core": "^0.1.7",
     "moment": "^2.29.1",
     "pluralize": "^8.0.0",
     "typescript": "~4.5.5"
@@ -35,5 +35,5 @@
     "@types/pluralize": "0.0.29",
     "copyfiles": "^2.4.1"
   },
-  "gitHead": "643ec6c1f1f27f6a943b09acb1f9d82785bdd803"
+  "gitHead": "939cd95d21fc7d00de379648df209fcbeae37e4f"
 }

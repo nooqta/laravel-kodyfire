@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('{{ pluralize (lowercase name) }}', function (Blueprint $table) {
+        Schema::create('{{ pluralize (underscore name) }}', function (Blueprint $table) {
             $table->id();
             {{> fields }}
             $table->timestamps();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('{{ pluralize (lowercase name) }}');
+        Schema::dropIfExists('{{ pluralize (underscore name) }}');
     }
 };
