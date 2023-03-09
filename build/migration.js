@@ -23,9 +23,7 @@ class Migration extends concept_1.Concept {
         return __awaiter(this, void 0, void 0, function* () {
             const fieldsTemplate = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path, 'migration'), 'fields.template');
             this.engine.builder.registerPartial('fields', fieldsTemplate);
-            if (_data.import) {
-                _data = this.prepareData(_data);
-            }
+            _data = yield this.prepareData(_data);
             const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
             const filename = yield this.getFilename(_data);
             const compiled = this.engine.compile(template, _data);

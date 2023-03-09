@@ -33,6 +33,8 @@ const path_1 = require("path");
 const core_1 = require("@angular-devkit/core");
 const parsers = __importStar(require("./parsers"));
 const pluralize = require('pluralize');
+const util = require('util');
+const exec = util.promisify(require('child_process').exec);
 const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
 class Concept extends basic_kodyfire_1.Concept {
@@ -53,6 +55,34 @@ class Concept extends basic_kodyfire_1.Concept {
         this.engine.builder.registerHelper('hasId', (value) => {
             return value.includes('_id');
         });
+        this.engine.builder.registerHelper('stringify', (value) => {
+            return JSON.stringify(value);
+        });
+        // @ts-ignore
+        this.engine.builder.registerHelper('isEqual', (value1, value2, options) => {
+            return value1 === value2;
+        });
+        // @ts-ignore
+        this.engine.builder.registerHelper('includes', (value1, value2, options) => {
+            return value1.includes(value2);
+        });
+        this.engine.builder.registerHelper('switch', function (value, options) {
+            // @ts-ignore
+            this.switch_value = value;
+            // @ts-ignore
+            return options.fn(this);
+        });
+        this.engine.builder.registerHelper('case', function (value, options) {
+            // @ts-ignore
+            if (value == this.switch_value) {
+                // @ts-ignore
+                return options.fn(this);
+            }
+        });
+        // @ts-ignore
+        this.engine.builder.registerHelper('default', function (value, options) {
+            return true; ///We can add condition if needs
+        });
         for (const key in core_1.strings) {
             this.engine.builder.registerHelper(key, (value) => {
                 /* @ts-ignore */
@@ -64,9 +94,7 @@ class Concept extends basic_kodyfire_1.Concept {
         return __awaiter(this, void 0, void 0, function* () {
             const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
             _data.class = core_1.strings.classify(_data.name);
-            if (_data.import) {
-                _data = this.prepareData(_data);
-            }
+            _data = this.prepareData(_data);
             const compiled = this.engine.compile(template, _data);
             yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename(_data), compiled);
         });
@@ -92,11 +120,23 @@ class Concept extends basic_kodyfire_1.Concept {
             : (0, path_1.relative)(process.cwd(), __dirname);
     }
     prepareData(_data) {
-        const { parser } = _data;
-        // @ts-ignore
-        // We dynamically instantiate the parser class
-        const currentParser = new parsers[core_1.strings.capitalize(`${parser}Parser`)]();
-        return currentParser.parse(_data);
+        return __awaiter(this, void 0, void 0, function* () {
+            const { parser } = _data;
+            const command = `php ${(0, path_1.join)(this.technology.rootDir, 'artisan')} model:show ${core_1.strings.classify(_data.name)} --json`;
+            const { stdout, stderror } = yield exec(command);
+            if (!stderror) {
+                const output = JSON.parse(stdout);
+                _data.attributes = output.attributes.filter((attr) => attr.name != 'id');
+                _data.relations = output.relations;
+            }
+            // @ts-ignore
+            // We dynamically instantiate the parser class
+            if (_data.import) {
+                const currentParser = new parsers[core_1.strings.capitalize(`${parser}Parser`)]();
+                _data = currentParser.parse(_data);
+            }
+            return _data;
+        });
     }
 }
 exports.Concept = Concept;

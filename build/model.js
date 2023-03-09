@@ -65,7 +65,7 @@ class Model extends basic_kodyfire_1.Concept {
             const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
             _data.class = core_1.strings.classify(_data.name);
             if (_data.import) {
-                _data = this.prepareData(_data);
+                _data = yield this.prepareData(_data);
             }
             const compiled = this.engine.compile(template, _data);
             yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename(_data), compiled);

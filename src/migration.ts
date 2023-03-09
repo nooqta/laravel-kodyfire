@@ -18,9 +18,7 @@ export class Migration extends BaseConcept {
     );
     this.engine.builder.registerPartial('fields', fieldsTemplate);
 
-    if(_data.import) {
-      _data = this.prepareData(_data);
-    }
+      _data = await this.prepareData(_data);
     const template = await this.engine.read(
       join(this.getTemplatesPath(), this.template.path),
       _data.template

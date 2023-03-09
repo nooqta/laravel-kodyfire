@@ -9,19 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Request = void 0;
+exports.Factory = void 0;
 const path_1 = require("path");
 const core_1 = require("@angular-devkit/core");
 const concept_1 = require("./concept");
-class Request extends concept_1.Concept {
+class Factory extends concept_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
     }
     generate(_data) {
         return __awaiter(this, void 0, void 0, function* () {
             const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
-            _data.class = `${core_1.strings.classify(_data.name)}Request`;
-            _data = this.prepareData(_data);
+            _data.namespace = _data.factoryNamespace = 'Database\\Factories';
+            _data.class = `${core_1.strings.classify(_data.name)}Factory`;
+            _data.factory = core_1.strings.classify(_data.name);
+            _data = yield this.prepareData(_data);
             const compiled = this.engine.compile(template, _data);
             yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename(_data), compiled);
         });
@@ -40,5 +42,5 @@ class Request extends concept_1.Concept {
             : (0, path_1.relative)(process.cwd(), __dirname);
     }
 }
-exports.Request = Request;
-//# sourceMappingURL=request.js.map
+exports.Factory = Factory;
+//# sourceMappingURL=factory.js.map

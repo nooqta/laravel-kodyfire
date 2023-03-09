@@ -4,7 +4,7 @@ import { strings } from '@angular-devkit/core';
 
 import { Concept as BaseConcept } from './concept';
 
-export class Repository extends BaseConcept {
+export class Factory extends BaseConcept {
   constructor(concept: Partial<IConcept>, technology: ITechnology) {
     super(concept, technology);
 
@@ -15,8 +15,10 @@ export class Repository extends BaseConcept {
       join(this.getTemplatesPath(), this.template.path),
       _data.template
     );
-    _data.class = `${strings.classify(_data.name)}Repository`;
-    _data = await this.prepareData(_data);
+    _data.namespace = _data.factoryNamespace =  'Database\\Factories';
+    _data.class = `${strings.classify(_data.name)}Factory`;
+    _data.factory = strings.classify(_data.name);
+      _data = await this.prepareData(_data);
     const compiled = this.engine.compile(template, _data);
 
     await this.engine.createOrOverwrite(
@@ -31,7 +33,7 @@ export class Repository extends BaseConcept {
     if (data.filename) return data.filename;
     return join(
       data.outputDir,
-      `${strings.classify(data.name)}Repository.php`
+      `${strings.classify(data.class)}.php`
     );
   }
 

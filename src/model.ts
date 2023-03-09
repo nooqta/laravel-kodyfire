@@ -42,7 +42,7 @@ export class Model extends BaseConcept {
     );
     _data.class = strings.classify(_data.name);
     if(_data.import) {
-      _data = this.prepareData(_data);
+      _data = await this.prepareData(_data);
     }
     const compiled = this.engine.compile(template, _data);
 

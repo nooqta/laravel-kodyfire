@@ -16,9 +16,7 @@ export class Observer extends BaseConcept {
       _data.template
     );
     _data.class = `${strings.classify(_data.name)}Observer`;
-    if(_data.import) {
-      _data = this.prepareData(_data);
-    }
+    _data = await this.prepareData(_data);
     const compiled = this.engine.compile(template, _data);
 
     await this.engine.createOrOverwrite(

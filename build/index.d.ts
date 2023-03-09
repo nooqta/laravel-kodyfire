@@ -8,6 +8,7 @@ export { Request } from './request';
 export { Repository } from './repository';
 export { Migration } from './migration';
 export { Seeder } from './seeder';
+export { Factory } from './factory';
 export { Resource } from './resource';
 export { Event } from './event';
 export { Listener } from './listener';

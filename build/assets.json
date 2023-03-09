@@ -91,7 +91,16 @@
             "outputDir": "database/migrations",
             "template": {
                 "path": "templates/",
-                "options": ["repository.php.template"]
+                "options": ["migration.php.template"]
+            }
+        },
+        {
+            "name": "seeder",
+            "source": "template",
+            "outputDir": "database/seeders",
+            "template": {
+                "path": "templates/",
+                "options": ["seeder.php.template"]
             }
         },
         {

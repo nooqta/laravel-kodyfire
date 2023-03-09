@@ -10,7 +10,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Kody = exports.TestUnit = exports.Test = exports.Collection = exports.Middleware = exports.Policy = exports.Observer = exports.Subscriber = exports.Listener = exports.Event = exports.Resource = exports.Seeder = exports.Migration = exports.Repository = exports.Request = exports.Controller = exports.Model = exports.Concept = exports.schema = exports.Technology = void 0;
+exports.Kody = exports.TestUnit = exports.Test = exports.Collection = exports.Middleware = exports.Policy = exports.Observer = exports.Subscriber = exports.Listener = exports.Event = exports.Resource = exports.Factory = exports.Seeder = exports.Migration = exports.Repository = exports.Request = exports.Controller = exports.Model = exports.Concept = exports.schema = exports.Technology = void 0;
 __exportStar(require("basic-kodyfire"), exports);
 var technology_1 = require("./technology");
 Object.defineProperty(exports, "Technology", { enumerable: true, get: function () { return technology_1.Technology; } });
@@ -30,6 +30,8 @@ var migration_1 = require("./migration");
 Object.defineProperty(exports, "Migration", { enumerable: true, get: function () { return migration_1.Migration; } });
 var seeder_1 = require("./seeder");
 Object.defineProperty(exports, "Seeder", { enumerable: true, get: function () { return seeder_1.Seeder; } });
+var factory_1 = require("./factory");
+Object.defineProperty(exports, "Factory", { enumerable: true, get: function () { return factory_1.Factory; } });
 var resource_1 = require("./resource");
 Object.defineProperty(exports, "Resource", { enumerable: true, get: function () { return resource_1.Resource; } });
 var event_1 = require("./event");
