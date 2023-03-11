@@ -46,8 +46,12 @@ class Engine extends basic_kodyfire_1.Engine {
                 const template = yield fsPromises.readFile((0, path_1.join)(path, templateName));
                 return template === null || template === void 0 ? void 0 : template.toString();
             }
-            const template = yield fsPromises.readFile((0, path_1.join)((0, path_1.relative)(process.cwd(), __dirname), path, templateName));
-            return template === null || template === void 0 ? void 0 : template.toString();
+            if (fs.existsSync((0, path_1.join)((0, path_1.relative)(process.cwd(), __dirname), path, templateName))) {
+                const template = yield fsPromises.readFile((0, path_1.join)((0, path_1.relative)(process.cwd(), __dirname), path, templateName));
+                return template === null || template === void 0 ? void 0 : template.toString();
+            }
+            console.log('Template not found', (0, path_1.join)(path, templateName));
+            return '';
         });
     }
     getPartial(path, template, data) {

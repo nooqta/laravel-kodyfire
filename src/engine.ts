@@ -18,10 +18,14 @@ export class Engine extends BaseEngine {
       const template = await fsPromises.readFile(join(path, templateName));
       return template?.toString();
     }
-    const template = await fsPromises.readFile(
-      join(relative(process.cwd(), __dirname), path, templateName)
-    );
-    return template?.toString();
+    if(fs.existsSync( join(relative(process.cwd(), __dirname), path, templateName))) {
+      const template = await fsPromises.readFile(
+        join(relative(process.cwd(), __dirname), path, templateName)
+      );
+      return template?.toString();
+    }
+    console.log('Template not found', join(path, templateName));
+    return '';
   }
 
   async getPartial(path: string, template: string, data: any) {

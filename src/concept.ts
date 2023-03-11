@@ -7,6 +7,7 @@ const util = require('util');
 const  exec = util.promisify(require('child_process').exec);
 import { Concept as BaseConcept } from 'basic-kodyfire';
 import { Engine } from './engine';
+import { existsSync } from 'fs';
 export class Concept extends BaseConcept {
   extension = '.php';
   constructor(concept: Partial<IConcept>, technology: ITechnology) {
@@ -110,13 +111,18 @@ export class Concept extends BaseConcept {
 
   async prepareData(_data: any): Promise<any> {
     const { parser } = _data;
+    // check if join(this.technology.rootDir, 'artisan') exists
+    if(existsSync(join(this.technology.rootDir, 'artisan'))) {
     const command = `php ${join(this.technology.rootDir, 'artisan')} model:show ${strings.classify(_data.name)} --json`;
     const { stdout, stderror } = await exec(command);
     if(!stderror) {
       const output = JSON.parse(stdout);
       _data.attributes = output.attributes.filter((attr: any) => attr.name != 'id');
       _data.relations = output.relations;
-    }
+    } 
+  } else {
+    console.info(`${join(this.technology.rootDir, 'artisan')} not found. Skipping model:show command`)
+  }
     // @ts-ignore
     // We dynamically instantiate the parser class
     if(_data.import) {

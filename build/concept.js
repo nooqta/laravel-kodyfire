@@ -37,6 +37,7 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const basic_kodyfire_1 = require("basic-kodyfire");
 const engine_1 = require("./engine");
+const fs_1 = require("fs");
 class Concept extends basic_kodyfire_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
@@ -122,12 +123,18 @@ class Concept extends basic_kodyfire_1.Concept {
     prepareData(_data) {
         return __awaiter(this, void 0, void 0, function* () {
             const { parser } = _data;
-            const command = `php ${(0, path_1.join)(this.technology.rootDir, 'artisan')} model:show ${core_1.strings.classify(_data.name)} --json`;
-            const { stdout, stderror } = yield exec(command);
-            if (!stderror) {
-                const output = JSON.parse(stdout);
-                _data.attributes = output.attributes.filter((attr) => attr.name != 'id');
-                _data.relations = output.relations;
+            // check if join(this.technology.rootDir, 'artisan') exists
+            if ((0, fs_1.existsSync)((0, path_1.join)(this.technology.rootDir, 'artisan'))) {
+                const command = `php ${(0, path_1.join)(this.technology.rootDir, 'artisan')} model:show ${core_1.strings.classify(_data.name)} --json`;
+                const { stdout, stderror } = yield exec(command);
+                if (!stderror) {
+                    const output = JSON.parse(stdout);
+                    _data.attributes = output.attributes.filter((attr) => attr.name != 'id');
+                    _data.relations = output.relations;
+                }
+            }
+            else {
+                console.info(`${(0, path_1.join)(this.technology.rootDir, 'artisan')} not found. Skipping model:show command`);
             }
             // @ts-ignore
             // We dynamically instantiate the parser class
