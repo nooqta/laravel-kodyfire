@@ -4,3 +4,4 @@
 !*.d.ts
 !src/schema.ts
 .npmrc
+.yarn
