@@ -28,6 +28,37 @@ In order to generate your artifacts, run the `generate` command. The syntax is `
 kody generate laravel model
 ```
 
+or you can you the shorthand generation command
+```sh
+kody g laravel:model YourModelName
+```
+The shorthand will execute without prompting if no additional arguments are required
+
+You can also create related artifacts by providing the `--includes` option with a list of comma seperated artifacts
+```sh
+kody g laravel:model YourModelName --includes migration,seeder,factory
+```
+In order to list available concepts, run the following command:
+```sh
+kody ls laravel
+```
+To list available templates run: 
+```sh
+kody ls laravel -s templates
+```
+To use a different template run
+```sh
+kody g laravel:model YourModelName --overwrites template:templateName
+```
+When providing a template name ommit the prefix and extension part of the template name. For example if the template name is `controller.api.php.template`, You should overwrite the template as follow:
+```sh
+kody g laravel:model YourModelName --overwrites template:api
+```
+
+`--overwrites` are the concept arguments. In order to list available arguments of all concepts run the following command: 
+```sh
+kody ls laravel -s overwrites
+```
 ### Method 2: As an importer
 You can use a source containing the definition of the artifacts you want to create at once. Available sources: yaml, plantuml(class diagram).  As an example, A declaration for the yaml laravel source import file might look like the following
 ```yaml
@@ -50,19 +81,39 @@ After adding your definitions, run the following command to import your assets.
 ```sh
 kody import laravel migration,model -s import.yaml
 ```
+### Using your own templates
+Since every project has its specificity, you can always overwrite the default templates provided by the package.
+In order to start using your own templates, you must publish the default templates into your root project under `.kody/laravel-kodyfire`.
+To do so run
+```sh
+kody publish laravel
+```
+or
+```sh
+kody publish laravel templateName
+```
+if you want to overwrite a single template
 
-### Available concepts 
+After updating the published template content. Test drive your template by running
+```sh
+kody g model yourModelName
+```
+## Available concepts TODO
 
 #### `concept` (default)
 > Generates a generic concept
-
+#### `model`
+> Generates a model class
+#### `controller`
+> Generates a controller class
+#### `TODO`
 ##### Usage
 ```bash
 kody g laravel yourConcept
 ```
 ##### Arguments
 
-- `kody` _string_ - The name of the kody. Laravel in our case. You can have multiple kodies installed. To list your installed kodies with your project run `kody list`
+- `kody` _string_ - The name of the kody. Laravel in our case. You can have multiple kodies installed. To list your installed kodies within your project run `kody list`
 - `concept` _string_ - The name of the concept you want to execute. To list the concepts of your installed kody (laravel), run `kody list laravel` 
 - `name` _string_ - The name that will be used to generate your artifact.
 

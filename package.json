@@ -1,7 +1,7 @@
 {
   "name": "laravel-kodyfire",
   "version": "0.1.26",
-  "description": "Generate x with laravel kodyfire",
+  "description": "A code generation tool for Laravel developers to rapidly generate artifacts using kodyfire",
   "main": "build/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
