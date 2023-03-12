@@ -28,6 +28,7 @@ export declare const model: {
         };
         outputDir: {
             type: string;
+            default: string;
         };
     };
     required: string[];
@@ -67,6 +68,7 @@ export declare const modelArray: {
             };
             outputDir: {
                 type: string;
+                default: string;
             };
         };
         required: string[];

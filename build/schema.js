@@ -22,7 +22,7 @@ exports.model = {
             enum: ['model.php.template', 'model.pivot.php.template'],
             default: 'model.php.template',
         },
-        outputDir: { type: 'string' },
+        outputDir: { type: 'string', default: '' },
     },
     required: ['name'],
 };
@@ -58,7 +58,7 @@ const generateConceptSchema = (concept) => {
                 enum: [`${concept.name}.php.template`],
                 default: `${concept.name}.php.template`,
             },
-            outputDir: { type: 'string' },
+            outputDir: { type: 'string', default: '' },
         },
         required: ['name'],
     };

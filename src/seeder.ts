@@ -30,10 +30,7 @@ export class Seeder extends BaseConcept {
 
   getFilename(data: any) {
     if (data.filename) return data.filename;
-    return join(
-      data.outputDir,
-      `${strings.classify(data.class)}.php`
-    );
+    return `${strings.classify(data.class)}.php`;
   }
 
   getExtension(templateName: string, defaultExtension = '.php') {

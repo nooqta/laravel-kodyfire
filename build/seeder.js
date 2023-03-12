@@ -29,7 +29,7 @@ class Seeder extends concept_1.Concept {
     getFilename(data) {
         if (data.filename)
             return data.filename;
-        return (0, path_1.join)(data.outputDir, `${core_1.strings.classify(data.class)}.php`);
+        return `${core_1.strings.classify(data.class)}.php`;
     }
     getExtension(templateName, defaultExtension = '.php') {
         return templateName.replace('.template', defaultExtension).split('.').pop();
