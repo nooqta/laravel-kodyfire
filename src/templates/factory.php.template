@@ -17,7 +17,31 @@ class {{ factory }}Factory extends Factory
     public function definition()
     {
         return [
-            //
+            {{#each attributes}}
+            {{#if (isEqual default null)}}
+            {{#if (includes type 'string')}}
+            '{{ name }}' => $faker->word,
+            {{else if (includes type 'integer')}}
+            '{{ name }}' => $faker->randomInteger(), 
+            {{else if (includes type 'decimal')}}
+            '{{ name }}' => $faker->randomFloat(8), 
+            {{else if (includes type 'text')}}
+            '{{ name }}' => $faker->paragraph(),
+            {{else if (includes type 'datetime')}}
+            '{{ name }}' => Carbon::now(),
+            {{else if (includes type 'date')}}
+            '{{ name }}' => $faker->date(),
+            {{else}}
+            '{{ name }}' => '',
+            {{/if}}
+            {{else}}
+            {{#if (isEqual type 'integer')}}
+            '{{ name }}' => {{{this.default}}},
+            {{else}}
+            '{{ name }}' => '{{{this.default}}}',
+            {{/if}}
+            {{/if}}
+            {{/each}}
         ];
     }
 }

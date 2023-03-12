@@ -4,6 +4,7 @@ namespace {{ namespace }};
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\\{{ classify name }};
 
 class {{ class }} extends Seeder
 {
@@ -14,6 +15,9 @@ class {{ class }} extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('{{ lowercase (pluralize name) }}')->delete();
+
+        ${{ underscore name}} = {{ classify name}}::factory()->create();
+
     }
 }
