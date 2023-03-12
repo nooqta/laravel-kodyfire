@@ -26,7 +26,10 @@ exports.model = {
     },
     required: ['name'],
 };
-const concepts = [{ name: 'migration', namespace: 'Database\\Migrations' },
+const concepts = [{ name: 'migration', namespace: 'Database\\Migrations', arguments: [
+            { name: 'table', type: 'string' },
+            { name: 'type', type: 'string', enum: ['create', 'update'], default: false },
+        ], required: ['table', 'type'] },
     { name: 'controller', namespace: 'App\\Http\\Controllers\\API\\V1' },
     { name: 'model', namespace: 'App\\Models' },
     { name: 'request', namespace: 'App\\Http\\Requests' },
@@ -45,7 +48,7 @@ const concepts = [{ name: 'migration', namespace: 'Database\\Migrations' },
     { name: 'repository', namespace: 'App\\Repositories' },
 ];
 const generateConceptSchema = (concept) => {
-    return {
+    let schema = {
         type: 'object',
         properties: {
             name: { type: 'string' },
@@ -59,6 +62,15 @@ const generateConceptSchema = (concept) => {
         },
         required: ['name'],
     };
+    if (concept.arguments) {
+        concept.arguments.forEach((arg) => {
+            schema.properties[arg.name] = Object.assign(Object.assign({ type: arg.type }, (arg.enum && { enum: arg.enum })), (arg.default && { default: arg.default }));
+        });
+    }
+    if (concept.required) {
+        schema.required = [...schema.required, ...concept.required];
+    }
+    return schema;
 };
 const generateConceptArray = (concept) => {
     return {

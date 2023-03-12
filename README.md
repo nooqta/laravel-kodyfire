@@ -1,5 +1,5 @@
 # Laravel-kodyfire
-![Version](https://img.shields.io/badge/version-0.1.1-blue.svg?cacheSeconds=2592000)
+![Version](https://img.shields.io/badge/version-0.1.28-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://github.com/nooqta/kodyfire#install-a-kody)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/nooqta/kodyfire/blob/main/LICENSE)
 
@@ -52,7 +52,7 @@ kody g laravel:model YourModelName --overwrites template:templateName
 ```
 When providing a template name ommit the prefix and extension part of the template name. For example if the template name is `controller.api.php.template`, You should overwrite the template as follow:
 ```sh
-kody g laravel:model YourModelName --overwrites template:api
+kody g laravel:controller YourControllerlName --overwrites template:api
 ```
 
 `--overwrites` are the concept arguments. In order to list available arguments of all concepts run the following command: 
@@ -106,15 +106,43 @@ kody g model yourModelName
 > Generates a model class
 #### `controller`
 > Generates a controller class
-#### `TODO`
+#### `request`
+> Generates a request class
+#### `resource`
+> Generates a resource class
+#### `collection`
+> Generates a collection class
+#### `event`
+> Generates an event class
+#### `listener`
+> Generates a listener class
+#### `subscriber`
+> Generates a subscriber class
+#### `observer`
+> Generates a observer class
+#### `policy`
+> Generates a policy class
+#### `factory`
+> Generates a factory class
+#### `seeder`
+> Generates a seeder class
+#### `test`
+> Generates a test class
+#### `testUnit`
+> Generates a unit test class
+#### `middleware`
+> Generates a middleware class
+#### `repository`
+> Generates a repository class
+
 ##### Usage
 ```bash
 kody g laravel yourConcept
 ```
 ##### Arguments
 
-- `kody` _string_ - The name of the kody. Laravel in our case. You can have multiple kodies installed. To list your installed kodies within your project run `kody list`
-- `concept` _string_ - The name of the concept you want to execute. To list the concepts of your installed kody (laravel), run `kody list laravel` 
+- `kody` _string_ - The name of the kody. Laravel in our case. You can also use the `kody:concept` syntax. You can have multiple kodies installed. To list your installed kodies within your project run `kody list`
+- `concept` _string_ - The name of the concept you want to execute. if you've used the kody:concept syntax this argument will be considered the `name` argument and the command will not prompt you for additional arguments if there is no other required parameters. To list the concepts of your installed kody (laravel), run `kody list laravel` 
 - `name` _string_ - The name that will be used to generate your artifact.
 
 ##### Options

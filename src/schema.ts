@@ -24,7 +24,11 @@ export const model = {
   required: ['name'],
 };
 
-const concepts = [{name: 'migration', namespace: 'Database\\Migrations'},
+const concepts = [{name: 'migration', namespace: 'Database\\Migrations', arguments: [
+  { name: 'table', type: 'string' },
+  { name: 'type', type: 'string', enum: ['create', 'update'], default: false },
+
+], required: ['table', 'type']},
  {name: 'controller',  namespace: 'App\\Http\\Controllers\\API\\V1'},
  {name: 'model',  namespace: 'App\\Models'}, 
  {name: 'request',  namespace: 'App\\Http\\Requests'},
@@ -43,22 +47,36 @@ const concepts = [{name: 'migration', namespace: 'Database\\Migrations'},
   {name: 'repository',  namespace: 'App\\Repositories'},
 ]
 
-const generateConceptSchema = (concept: any) => {
-  return {
-    type: 'object',
-  properties: {
-    name: { type: 'string' },
-    namespace: { type: 'string', default: concept.namespace },
-    template: {
-      type: 'string',
-      enum: [`${concept.name}.php.template`],
-      default: `${concept.name}.php.template`,
-    },
-    outputDir: { type: 'string' },
-  },
-  required: ['name'],
-  };   
+const generateConceptSchema = (concept:any) => {
+  let schema: any =  {
+      type: 'object',
+      properties: {
+          name: { type: 'string' },
+          namespace: { type: 'string', default: concept.namespace },
+          template: {
+              type: 'string',
+              enum: [`${concept.name}.php.template`],
+              default: `${concept.name}.php.template`,
+          },
+          outputDir: { type: 'string' },
+      },
+      required: ['name'],
+  };
+  if (concept.arguments) {
+      concept.arguments.forEach((arg:any) => {
+          schema.properties[arg.name] = {
+          type: arg.type,
+      ...(arg.enum && {enum: arg.enum}),
+      ...(arg.default && {default: arg.default})
+          }
+      })
   }
+  if(concept.required) {
+      schema.required = [...schema.required, ...concept.required];
+  }
+
+  return schema;
+};
 
   const generateConceptArray = (concept: any) => {
     return {

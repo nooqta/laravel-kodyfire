@@ -1,6 +1,6 @@
 {
   "name": "laravel-kodyfire",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "A code generation tool for Laravel developers to rapidly generate artifacts using kodyfire",
   "main": "build/index.js",
   "scripts": {
