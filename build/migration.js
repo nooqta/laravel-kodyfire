@@ -45,7 +45,8 @@ class Migration extends concept_1.Concept {
                 return data.filename;
             // Check if a file exists in the migration folder
             const files = yield this.engine.getFiles(this.technology.rootDir, this.outputDir);
-            const suffix = `_create_${core_1.strings.dasherize(pluralize(data.name))}_table.php`;
+            const type = data.type ? data.type : 'create';
+            const suffix = `_${type}_${core_1.strings.dasherize(pluralize(data.name))}_table.php`;
             const file = files.find((f) => f.includes(suffix));
             if (file) {
                 return file;

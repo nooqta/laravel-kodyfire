@@ -49,7 +49,8 @@ export class Migration extends BaseConcept {
       this.technology.rootDir,
       this.outputDir
     );
-    const suffix = `_create_${strings.dasherize(
+    const type = data.type? data.type : 'create';
+    const suffix = `_${type}_${strings.dasherize(
       pluralize(data.name)
     )}_table.php`;
     const file = files.find((f: any) => f.includes(suffix));

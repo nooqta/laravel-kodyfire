@@ -13,11 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('{{ pluralize (underscore name) }}', function (Blueprint $table) {
+        {{#if (isEqual type 'create')}}
+        Schema::create('{{ pluralize (underscore table) }}', function (Blueprint $table) {
             $table->id();
             {{> fields }}
             $table->timestamps();
         });
+        {{/if}}
+        {{#if (isEqual type 'update')}}
+        Schema::table('{{ pluralize (underscore table) }}', function (Blueprint $table) {
+            {{> fields }}
+        });
+        {{/if}}
     }
 
     /**
@@ -27,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('{{ pluralize (underscore name) }}');
+        Schema::dropIfExists('{{ pluralize (underscore table) }}');
     }
 };

@@ -22,6 +22,8 @@ public function index(Request  $request) {
       $pageSize = $request->query('pageSize');
       $currentPage = $request->query('page');
       $search = $request->query('q');
+      $sortBy = $request->query('sortBy');
+      $sortOrder = $request->query('sortDesc', false)? 'desc' : 'asc';
       Paginator::currentPageResolver(function () use ($currentPage) {
         return $currentPage;
       });
@@ -34,6 +36,10 @@ public function index(Request  $request) {
             $q->where('name', 'like', "%{$search}%");;
           }
         );
+      }
+
+      if($sortBy) {
+        $data = $data->orderBy($sortBy, $sortOrder);
       }
       
       if($currentPage) {
