@@ -19,11 +19,13 @@ class Factory extends concept_1.Concept {
     }
     generate(_data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
+            _data.template = this.resolveTemplateName(_data.template, this.name);
+            _data.outputDir = _data.outputDir || '';
             _data.namespace = _data.factoryNamespace = 'Database\\Factories';
             _data.class = `${core_1.strings.classify(_data.name)}Factory`;
             _data.factory = core_1.strings.classify(_data.name);
             _data = yield this.prepareData(_data);
+            const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
             const compiled = this.engine.compile(template, _data);
             yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename(_data), compiled);
         });

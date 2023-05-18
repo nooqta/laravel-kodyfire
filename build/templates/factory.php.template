@@ -3,6 +3,7 @@
 namespace {{ factoryNamespace }};
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Carbon\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\{{ namespacedModel }}>
@@ -16,6 +17,7 @@ class {{ factory }}Factory extends Factory
      */
     public function definition()
     {
+        $faker = \Faker\Factory::create();
         return [
             {{#each attributes}}
             {{#if (isEqual default null)}}

@@ -4,7 +4,7 @@ import { strings } from '@angular-devkit/core';
 import * as parsers from './parsers';
 const pluralize = require('pluralize');
 
-import { Concept as BaseConcept } from 'basic-kodyfire';
+import { Concept as BaseConcept } from './concept';
 import { Engine } from './engine';
 export class Model extends BaseConcept {
   extension = '.php';
@@ -19,6 +19,12 @@ export class Model extends BaseConcept {
     this.engine.builder.registerHelper('pluralize', (value: any) => {
       return pluralize(value);
     });
+    this.engine.builder.registerHelper('wrap', (value: any,  wrap: any) => {
+      return Array.isArray(value)? value.map((v) => wrap + v + wrap):value;
+    });
+    this.engine.builder.registerHelper('join', (value: any,  seperator: any) => {
+      return value.join(seperator);
+    });
     this.engine.builder.registerHelper('lowercase', (value: any) => {
       return value.toLowerCase();
     });
@@ -26,7 +32,7 @@ export class Model extends BaseConcept {
     this.engine.builder.registerHelper('hasId', (value: any) => {
       return value.includes('_id');
     });
-
+  
     for (const key in strings) {
       this.engine.builder.registerHelper(key, (value: any) => {
         /* @ts-ignore */
@@ -36,6 +42,13 @@ export class Model extends BaseConcept {
   }
 
   async generate(_data: any) {
+    const fieldsTemplate = await this.engine.read(
+      join(this.getTemplatesPath(), this.template.path, 'migration'),
+      'casts.template'
+    );
+    this.engine.builder.registerPartial('casts', fieldsTemplate);
+    _data.template = this.resolveTemplateName(_data.template, this.name);
+    _data.outputDir = _data.outputDir || '';
     const template = await this.engine.read(
       join(this.getTemplatesPath(), this.template.path),
       _data.template
@@ -52,12 +65,6 @@ export class Model extends BaseConcept {
       this.getFilename(_data),
       compiled
     );
-  }
-
-  // resolve template name if it does not have template extension
-  resolveTemplateName(templateName: string, name: string) {
-    if (templateName.includes('.template')) return templateName;
-    return `${name.toLowerCase()}.${templateName}${this.extension}.template`;
   }
 
   getFilename(data: any) {

@@ -68,12 +68,14 @@ export class Concept extends BaseConcept {
   }
 
   async generate(_data: any) {
+    _data.template = this.resolveTemplateName(_data.template, this.name);
+    _data.outputDir = _data.outputDir || '';
     const template = await this.engine.read(
       join(this.getTemplatesPath(), this.template.path),
       _data.template
     );
     _data.class = strings.classify(_data.name);
-    _data = this.prepareData(_data);
+    _data = await this.prepareData(_data);
     const compiled = this.engine.compile(template, _data);
 
     await this.engine.createOrOverwrite(
@@ -86,7 +88,7 @@ export class Concept extends BaseConcept {
 
   // resolve template name if it does not have template extension
   resolveTemplateName(templateName: string, name: string) {
-    if (templateName.includes('.template')) return templateName;
+    if (templateName && templateName.includes('.template')) return templateName;
     templateName = templateName ? `.${templateName}` : '';
     return `${name.toLowerCase()}${templateName}${this.extension}.template`;
   }
@@ -114,12 +116,18 @@ export class Concept extends BaseConcept {
     // check if join(this.technology.rootDir, 'artisan') exists
     if(existsSync(join(this.technology.rootDir, 'artisan'))) {
     const command = `php ${join(this.technology.rootDir, 'artisan')} model:show ${strings.classify(_data.name)} --json`;
-    const { stdout, stderror } = await exec(command);
-    if(!stderror) {
-      const output = JSON.parse(stdout);
-      _data.attributes = output.attributes.filter((attr: any) => attr.name != 'id');
-      _data.relations = output.relations;
-    } 
+    try {
+
+      const { stdout, stderror } = await exec(command);
+      if(!stderror) {
+        const output = JSON.parse(stdout);
+        console.log(output);
+        _data.attributes = output.attributes.filter((attr: any) => attr.name != 'id');
+        _data.relations = output.relations;
+      } 
+    } catch (error) {
+      console.error(error);
+    }
   } else {
     console.info(`${join(this.technology.rootDir, 'artisan')} not found. Skipping model:show command`)
   }

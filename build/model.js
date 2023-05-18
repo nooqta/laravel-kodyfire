@@ -33,9 +33,9 @@ const path_1 = require("path");
 const core_1 = require("@angular-devkit/core");
 const parsers = __importStar(require("./parsers"));
 const pluralize = require('pluralize');
-const basic_kodyfire_1 = require("basic-kodyfire");
+const concept_1 = require("./concept");
 const engine_1 = require("./engine");
-class Model extends basic_kodyfire_1.Concept {
+class Model extends concept_1.Concept {
     constructor(concept, technology) {
         super(concept, technology);
         this.extension = '.php';
@@ -46,6 +46,12 @@ class Model extends basic_kodyfire_1.Concept {
         });
         this.engine.builder.registerHelper('pluralize', (value) => {
             return pluralize(value);
+        });
+        this.engine.builder.registerHelper('wrap', (value, wrap) => {
+            return Array.isArray(value)? value.map((v) => wrap + v + wrap):value;
+        });
+        this.engine.builder.registerHelper('join', (value, seperator) => {
+            return value.join(seperator);
         });
         this.engine.builder.registerHelper('lowercase', (value) => {
             return value.toLowerCase();
@@ -62,6 +68,10 @@ class Model extends basic_kodyfire_1.Concept {
     }
     generate(_data) {
         return __awaiter(this, void 0, void 0, function* () {
+            const fieldsTemplate = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path, 'migration'), 'casts.template');
+            this.engine.builder.registerPartial('casts', fieldsTemplate);
+            _data.template = this.resolveTemplateName(_data.template, this.name);
+            _data.outputDir = _data.outputDir || '';
             const template = yield this.engine.read((0, path_1.join)(this.getTemplatesPath(), this.template.path), _data.template);
             _data.class = core_1.strings.classify(_data.name);
             if (_data.import) {
@@ -70,12 +80,6 @@ class Model extends basic_kodyfire_1.Concept {
             const compiled = this.engine.compile(template, _data);
             yield this.engine.createOrOverwrite(this.technology.rootDir, this.outputDir, this.getFilename(_data), compiled);
         });
-    }
-    // resolve template name if it does not have template extension
-    resolveTemplateName(templateName, name) {
-        if (templateName.includes('.template'))
-            return templateName;
-        return `${name.toLowerCase()}.${templateName}${this.extension}.template`;
     }
     getFilename(data) {
         if (data.filename)

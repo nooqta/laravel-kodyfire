@@ -12,6 +12,7 @@ export class Migration extends BaseConcept {
   }
 
   async generate(_data: any) {
+    _data.template = this.resolveTemplateName(_data.template, this.name);
     const fieldsTemplate = await this.engine.read(
       join(this.getTemplatesPath(), this.template.path, 'migration'),
       'fields.template'

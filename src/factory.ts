@@ -11,14 +11,16 @@ export class Factory extends BaseConcept {
   }
 
   async generate(_data: any) {
-    const template = await this.engine.read(
-      join(this.getTemplatesPath(), this.template.path),
-      _data.template
-    );
+    _data.template = this.resolveTemplateName(_data.template, this.name);
+    _data.outputDir = _data.outputDir || '';
     _data.namespace = _data.factoryNamespace =  'Database\\Factories';
     _data.class = `${strings.classify(_data.name)}Factory`;
     _data.factory = strings.classify(_data.name);
       _data = await this.prepareData(_data);
+    const template = await this.engine.read(
+      join(this.getTemplatesPath(), this.template.path),
+      _data.template
+    );
     const compiled = this.engine.compile(template, _data);
 
     await this.engine.createOrOverwrite(

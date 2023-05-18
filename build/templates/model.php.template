@@ -10,11 +10,11 @@ class {{ class }} extends Model
     use HasFactory;
 
     protected $fillable = [
-        {{{ fillable }}}
+        {{{ join (wrap fillable "'") ", " }}}
     ];
 
     protected $casts = [
-        {{{ casts }}}
+        {{> casts }}
     ];
 
     {{# each relations }}

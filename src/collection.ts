@@ -11,6 +11,8 @@ export class Collection extends BaseConcept {
   }
 
   async generate(_data: any) {
+    _data.template = this.resolveTemplateName(_data.template, this.name);
+    _data.outputDir = _data.outputDir || '';
     const template = await this.engine.read(
       join(this.getTemplatesPath(), this.template.path),
       _data.template
