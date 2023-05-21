@@ -48,7 +48,7 @@ class Model extends concept_1.Concept {
             return pluralize(value);
         });
         this.engine.builder.registerHelper('wrap', (value, wrap) => {
-            return Array.isArray(value)? value.map((v) => wrap + v + wrap):value;
+            return Array.isArray(value) ? value.map((v) => wrap + v + wrap) : value;
         });
         this.engine.builder.registerHelper('join', (value, seperator) => {
             return value.join(seperator);
