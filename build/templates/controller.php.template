@@ -45,7 +45,7 @@ public function index(Request  $request) {
       if($currentPage) {
         $data = new \App\Http\Resources\\{{ classify name}}Collection($data->paginate($pageSize));
       } else {
-        $data = {{ classify name}}Resource::collection($data->get());
+        $data = ['data' => {{ classify name}}Resource::collection($data->get())];
       }
 
     } catch (\Throwable $th) {
